@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Photography Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Previous styles remain the same except for color updates */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 2rem 4rem;
+            text-align: center;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .photographer-name {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .gallery {
+            padding: 2rem;
+            columns: 3;
+            column-gap: 2rem;
+            margin: 0 auto;
+            max-width: 1800px;
+        }
+
+        .image-container {
+            break-inside: avoid;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-container:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container:nth-child(3n + 1) {
+            margin-top: 2rem;
+        }
+
+        .image-container:nth-child(3n + 2) {
+            margin-top: -1rem;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(44, 62, 80, 0.8));
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .image-title {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Random sizing for images */
+        .image-container:nth-child(1) { width: 100%; }
+        .image-container:nth-child(2) { width: 85%; }
+        .image-container:nth-child(3) { width: 95%; }
+        .image-container:nth-child(4) { width: 90%; }
+        .image-container:nth-child(5) { width: 100%; }
+        .image-container:nth-child(6) { width: 80%; }
+        .image-container:nth-child(7) { width: 95%; }
+        .image-container:nth-child(8) { width: 85%; }
+        .image-container:nth-child(9) { width: 100%; }
+
+        /* About Section Styles */
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-text {
+            margin-top: 2rem;
+            text-align: left;
+            color: #444;
+        }
+
+        /* Contact Section Styles */
+        #contact {
+            background: #f7f9fc;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .contact-link:hover {
+            color: #3498db;
+            background: #f1f4f7;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                columns: 1;
+            }
+            header {
+                padding: 1rem;
+            }
+            nav {
+                gap: 1.5rem;
+            }
+            .contact-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<!-- Rest of the HTML remains exactly the same -->
+<body>
+    <header>
+        <h1 class="photographer-name">SKYLER KNUTZEN</h1>
+        <nav>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="portfolio">
+        <div class="gallery">
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Landscape photography">
+                <div class="image-overlay">
+                    <div class="image-title">Serenity in Nature</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Portrait photography">
+                <div class="image-overlay">
+                    <div class="image-title">Urban Perspectives</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Street photography">
+                <div class="image-overlay">
+                    <div class="image-title">City Life</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Architecture photography">
+                <div class="image-overlay">
+                    <div class="image-title">Modern Structures</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Nature photography">
+                <div class="image-overlay">
+                    <div class="image-title">Natural Patterns</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Event photography">
+                <div class="image-overlay">
+                    <div class="image-title">Festival Moments</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Abstract photography">
+                <div class="image-overlay">
+                    <div class="image-title">Abstract Visions</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Portrait photography">
+                <div class="image-overlay">
+                    <div class="image-title">Human Stories</div>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="https://hbxl.co.uk/wp-content/uploads/2015/05/Insert_Image_Here.jpg" alt="Travel photography">
+                <div class="image-overlay">
+                    <div class="image-title">Wanderlust</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-container">
+            <h2 style="font-weight: 300; letter-spacing: 2px;">ABOUT ME</h2>
+            <div class="about-text">
+                <p>As a passionate photographer based in the heart of the creative community, I've dedicated my career to capturing moments that tell compelling stories. With over 5 years of experience in both digital and film photography, I specialize in creating visual narratives that bridge the gap between art and documentation.</p>
+                <br>
+                <p>My work focuses on finding beauty in everyday moments, using natural light and authentic environments to create images that resonate with viewers. Whether I'm shooting landscapes, portraits, or street photography, I strive to bring out the underlying emotion and story in each frame.</p>
+                <br>
+                <p>When I'm not behind the camera, I'm either exploring new locations for future shoots or working with clients to bring their creative visions to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container">
+            <h2 style="font-weight: 300; letter-spacing: 2px;">GET IN TOUCH</h2>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" class="contact-link">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span class="contact-label">Email</span>
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+                    <i class="fab fa-linkedin contact-icon"></i>
+                    <span class="contact-label">LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
